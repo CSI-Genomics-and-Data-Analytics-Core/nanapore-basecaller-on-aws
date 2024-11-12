@@ -25,18 +25,18 @@ zones returned from CloudFormation's Fn::GetAZs intrinsic function."
 """
 environment = cdk.Environment(
     account=boto3.client("sts").get_caller_identity().get("Account"),
-    region=boto3.session.Session().region_name,
+    region="us-east-1",
 )
 
-environment_ap_southeast_1 = cdk.Environment(
+environment_us_east_1 = cdk.Environment(
     account=boto3.client("sts").get_caller_identity().get("Account"),
-    region="ap_southeast_1",
+    region="us-east-1",
 )
 
 # ensure we are in the right region
-if environment.region != "ap-southeast-1":
+if environment.region != "us-east-1":
     raise ValueError(
-        f"This CDK application needs to be deployed in the AWS region ap-southeast-1. "
+        f"This CDK application needs to be deployed in the AWS region us-east-1. "
         f"You are attempting a deployment into region {environment.region}."
     )
 

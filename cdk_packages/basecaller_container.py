@@ -17,6 +17,13 @@ from constructs import Construct
 dirname = os.path.dirname(__file__)
 ec2_client = boto3.client("ec2")
 
+region_to_ami_map = {
+    "us-east-1": "ami-0ac1f653c5b6af751",  # Deep Learning AMI GPU PyTorch 2.1.0 (Ubuntu 20.04) 20231103
+    "ap-southeast-1": "ami-0a4c2bb1787bdfe4f",  # Deep Learning OSS Nvidia Driver AMI GPU PyTorch 2.4.1 (Ubuntu 22.04) 20241016
+}
+region = boto3.session.Session().region_name
+ami_id = region_to_ami_map.get(region, "ami-0ac1f653c5b6af751")
+
 
 class BasecallerContainer(Construct):
 
@@ -61,11 +68,6 @@ class BasecallerContainer(Construct):
                 "repository_name": "basecaller_guppy_latest_dorado0.8.2",
                 "dorado_url": "https://cdn.oxfordnanoportal.com/software/analysis/dorado-0.8.2-linux-x64.tar.gz",
             },
-            # {
-            #     'id': 'guppy_latest_dorado_v0_6_3',
-            #     'repository_name': 'basecaller_guppy_latest_dorado0.6.3',
-            #     'dorado_url': 'https://cdn.oxfordnanoportal.com/software/analysis/dorado-0.6.3-linux-x64.tar.gz',
-            # },
         ]
 
         self.pipeline_arns = []
@@ -92,7 +94,7 @@ class BasecallerContainer(Construct):
                     os.path.join(dirname, "assets", "dockerfile_basecaller.yaml")
                 ).read(),
                 instance_configuration=imagebuilder.CfnContainerRecipe.InstanceConfigurationProperty(
-                    image="ami-052b2045207f966fd",
+                    image=ami_id,
                     block_device_mappings=[
                         imagebuilder.CfnContainerRecipe.InstanceBlockDeviceMappingProperty(
                             device_name="/dev/sda1",

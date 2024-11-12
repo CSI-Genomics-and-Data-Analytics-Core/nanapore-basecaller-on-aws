@@ -205,7 +205,7 @@ class BatchComputeEnv(Construct):
                         f"Action::s3:GetBucket*",
                         f"Action::s3:GetObject*",
                         f"Action::s3:List*",
-                        f"Resource::arn:aws:s3:::gedac-ont-data/*",
+                        f"Resource::arn:aws:s3:::gedac-us-east-1/*",
                     ],
                 },
             ],
@@ -291,7 +291,7 @@ def get_instance_types():
     use_only_validated = True
 
     validated_instances = [
-        "g4dn.xlarge",
+        "p4d.24xlarge",
         "g4dn.2xlarge",
         "g4dn.8xlarge",
         "g4dn.16xlarge",
@@ -299,7 +299,7 @@ def get_instance_types():
 
     # List of instance types for which we create spot compute environments in AWS Batch.
     spot_instance_types = [
-        "g4dn.xlarge",
+        "p4d.24xlarge",
         "g4dn.2xlarge",
         "g4dn.8xlarge",
         "g4dn.16xlarge",

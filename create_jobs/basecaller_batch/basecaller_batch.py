@@ -54,7 +54,7 @@ class BasecallerBatch:
     def __init__(self):
         self.instance_types = None
         self.validated_instances = [
-            "g4dn.metal",
+            "p4d.24xlarge",
             "g4dn.xlarge",
             "g4dn.2xlarge",
             "g4dn.4xlarge",
@@ -139,7 +139,7 @@ class BasecallerBatch:
                 self.instance_types[item["instance_type"]]["MemoryInfo"]["SizeInMiB"]
                 * 0.9
             )
-            file_lists = ["/fsx/input/ont_1_file_8_0.lst"]  # 1 job per GPU
+            file_lists = ["/fsx/input"]  # 1 job per GPU
             # Unique identifier that allows to track which AWS batch jobs belong to the same data set
             data_set_id = str(uuid.uuid4())
             print("Generating AWS Batch jobs ...")

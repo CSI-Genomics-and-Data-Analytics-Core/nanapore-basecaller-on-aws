@@ -16,6 +16,7 @@ phases:
                 rm "${INDICATOR_AWSCLI}"
                 exit 0
               fi
+              export DEBIAN_FRONTEND=noninteractive
               apt-get update
               apt-get install --no-install-recommends -y unzip
               curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"

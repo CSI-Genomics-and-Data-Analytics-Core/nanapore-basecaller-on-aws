@@ -16,7 +16,7 @@ phases:
                 rm "${INDICATOR_ECSAGENT}"
                 exit 0
               fi
-              curl -O https://s3.ap-southeast-1.amazonaws.com/amazon-ecs-agent-ap-southeast-1/amazon-ecs-init-latest.amd64.deb
+              curl -O https://s3.us-east-1.amazonaws.com/amazon-ecs-agent-us-east-1/amazon-ecs-init-latest.amd64.deb
               sudo dpkg -i amazon-ecs-init-latest.amd64.deb
               systemctl stop ecs
               rm -rf /var/log/ecs/*

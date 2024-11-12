@@ -21,21 +21,20 @@ class Data(Construct):
     def __init__(self, scope: Construct, construct_id: str, params=None):
         super().__init__(scope, construct_id)
 
-        bucket_name = "gedac-ont-data"  # Replace with your desired bucket name
-
         # S3 bucket to hold the FAST5 files downloaded from Oxford Nanopore Technologies (ONT)
         # self.bucket = s3.Bucket(
-        #     self, "Data S3 bucket",
-        #     bucket_name=bucket_name,
-        #     server_access_logs_prefix='access_logs/',
+        #     self,
+        #     "Data S3 bucket",
+        #     server_access_logs_prefix="access_logs/",
         #     encryption=s3.BucketEncryption.S3_MANAGED,
         #     block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
         #     enforce_ssl=True,
         #     removal_policy=cdk.RemovalPolicy.RETAIN,
-        #     auto_delete_objects=False
+        #     auto_delete_objects=False,
         # )
 
         self.bucket = None  # Initialize self.bucket
+        bucket_name = "gedac-us-east-1"
 
         try:
             # Check if bucket exists

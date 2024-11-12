@@ -19,9 +19,16 @@ from constructs import Construct
 dirname = os.path.dirname(__file__)
 ec2_client = boto3.client("ec2")
 
+region_to_ami_map = {
+    "us-east-1": "ami-0ac1f653c5b6af751",  # Deep Learning AMI GPU PyTorch 2.1.0 (Ubuntu 20.04) 20231103
+    "ap-southeast-1": "ami-0a4c2bb1787bdfe4f",  # Deep Learning OSS Nvidia Driver AMI GPU PyTorch 2.4.1 (Ubuntu 22.04) 20241016
+}
+
+region = boto3.session.Session().region_name
+ami_id = region_to_ami_map.get(region, "ami-0ac1f653c5b6af751")
+
 
 class BaseAMI(Construct):
-
     def __init__(self, scope: Construct, construct_id: str, params=None):
         super().__init__(scope, construct_id)
 
@@ -88,8 +95,7 @@ class BaseAMI(Construct):
             "ONT base AMI",
             name="ONT base AMI",
             description="ONT base AMI",
-            parent_image="ami-052b2045207f966fd",  # Deep Learning AMI GPU PyTorch 2.1.0 (Ubuntu 20.04) 20231103
-            # parent_image='ami-0a4c2bb1787bdfe4f',  # Deep Learning OSS Nvidia Driver AMI GPU PyTorch 2.4.1 (Ubuntu 22.04) 20241016
+            parent_image=ami_id,
             version=datetime.datetime.now().strftime("%Y.%m%d.%H%M%S"),
             components=[
                 imagebuilder.CfnImageRecipe.ComponentConfigurationProperty(

@@ -60,7 +60,7 @@ def main():
     # deregister_all_job_definitions()  # <-- run this command to delete all job definitions
 
     compute = [
-        {"instance_type": "g4dn.2xlarge", "provisioning_model": "EC2"},
+        {"instance_type": "p4d.24xlarge", "provisioning_model": "EC2"},
     ]
 
     # create dorado jobs
